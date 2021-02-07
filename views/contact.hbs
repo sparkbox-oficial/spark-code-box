@@ -1,6 +1,14 @@
 <h1>Contact page</h1>
 
+{{!-- {{ toJSON errorMessages }} --}}
+
 <form action="/contact" method="POST">
+  {{#each errorMessages as |error|}}
+    <div class="alert alert-danger">
+      {{error.msg}}
+    </div>
+  {{/each}}
+
   <div class="form-group">
     <label for="email">Email</label>
     <input name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
