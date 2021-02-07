@@ -13,12 +13,12 @@ router.post('/',
     .withMessage('Name is required'),
   body('email')
     .isEmail()
-    .withMessage('Email is not correct')
+    .withMessage('Email format isn\'t correct')
     .notEmpty()
     .withMessage('Email is required'),
   body('message')
     .notEmpty()
-    .withMessage('Email is required'),
+    .withMessage('Message is required'),
   (req, res, _next) => {
     const resultErrors = validationResult(req);
     const hasErrors = !resultErrors.isEmpty();
