@@ -1,0 +1,14 @@
+{
+  "ignore": ["*.test.js", "node_modules/*"],
+  "execMap": {
+    "js": "npm start"
+  },
+  "watch": [
+    "routes/",
+    "views/"
+  ],
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "ext": "js,json"
+}
