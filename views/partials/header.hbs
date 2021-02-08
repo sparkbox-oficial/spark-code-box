@@ -1,22 +1,33 @@
 <header>
-  <!-- Spark code box -->
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="#">Spark code box</a>
+    <a class="navbar-brand" href="/">Spark code box</a>
+
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
       aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
+        <li class="nav-item {{#if (equal actualUrl '/')}}active{{/if}}">
           <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item {{#if (equal actualUrl '/contact')}}active{{/if}}">
           <a class="nav-link" href="/contact">Contact</a>
         </li>
       </ul>
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
-      <a class="nav-link" href="/contact">Contact</a>
+
+      <ul class="navbar-nav ml-auto">
+        <li>
+          <a href="/login">
+            <button class="btn btn-outline-success my-2 my-sm-0 {{#if (equal actualUrl '/login')}}active{{/if}}" type="submit">Login</button>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {{#if (equal actualUrl '/sign-up')}}active{{/if}}" href="/sign-up">Crie conta agora</a>
+        </li>
+      </ul>
     </div>
+
   </nav>
 </header>

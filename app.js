@@ -10,6 +10,7 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const contactRouter = require('./routes/contact');
 const loginRouter = require('./routes/login');
+const signUpRouter = require('./routes/sign-up');
 
 const app = express();
 
@@ -17,6 +18,7 @@ const app = express();
 app.engine('hbs', hbs({
   extname: 'hbs',
   helpers: {
+    equal: (a, b) => a === b,
     toJSON: (obj) => {
       try {
         return JSON.stringify(obj);
@@ -47,7 +49,7 @@ app.use((req, res, next) => {
   res.render = function render(view, options, cb) {
     previousRender.call(this, view, {
       ...options,
-      urlData: req._parsedOriginalUrl,
+      actualUrl: req.originalUrl,
     }, cb);
   };
   next();
@@ -57,6 +59,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/contact', contactRouter);
 app.use('/login', loginRouter);
+app.use('/sign-up', signUpRouter);
 
 // catch 404 and forward to error handler
 app.use((_req, _res, next) => {
