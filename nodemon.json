@@ -4,6 +4,7 @@
     "js": "npm start"
   },
   "watch": [
+    "app.js",
     "routes/",
     "views/"
   ],

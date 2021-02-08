@@ -9,6 +9,7 @@ const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const contactRouter = require('./routes/contact');
+const loginRouter = require('./routes/login');
 
 const app = express();
 
@@ -38,9 +39,24 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+/**
+ * This middleware will add default options in all render function
+ */
+app.use((req, res, next) => {
+  const previousRender = res.render;
+  res.render = function render(view, options, cb) {
+    previousRender.call(this, view, {
+      ...options,
+      urlData: req._parsedOriginalUrl,
+    }, cb);
+  };
+  next();
+});
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/contact', contactRouter);
+app.use('/login', loginRouter);
 
 // catch 404 and forward to error handler
 app.use((_req, _res, next) => {
