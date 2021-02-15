@@ -5,12 +5,20 @@ const hbs = require('express-handlebars');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const mongoose = require('mongoose');
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const contactRouter = require('./routes/contact');
-const loginRouter = require('./routes/login');
-const signUpRouter = require('./routes/sign-up');
+const config = require('./src/config');
+const indexRouter = require('./src/routes/index');
+const usersRouter = require('./src/routes/users');
+const contactRouter = require('./src/routes/contact');
+const loginRouter = require('./src/routes/login');
+const signUpRouter = require('./src/routes/sign-up');
+
+mongoose.connect(config.db.connString, {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+});
+global.User = require('./src/models/user');
 
 const app = express();
 
@@ -28,11 +36,11 @@ app.engine('hbs', hbs({
       }
     },
   },
-  partialsDir: path.join(__dirname, 'views', 'partials'),
-  layoutsDir: path.join(__dirname, 'views', 'layouts'),
+  partialsDir: path.join(__dirname, 'src', 'views', 'partials'),
+  layoutsDir: path.join(__dirname, 'src', 'views', 'layouts'),
   defaultLayout: 'default',
 }));
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'src', 'views'));
 app.set('view engine', 'hbs');
 
 app.use(logger('dev'));
